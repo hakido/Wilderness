@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wild India Journeys</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f4ec;--muted:#b8c0b4;--leaf:#0b120d;--line:rgba(255,255,255,.16);--panel:rgba(8,14,10,.72);--gold:#d6a83b;--gold-soft:rgba(214,168,59,.18);--r:8px}
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;background:var(--leaf);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+    .shell{min-height:100svh;background:linear-gradient(90deg,rgba(6,10,7,.92),rgba(6,10,7,.56) 52%,rgba(6,10,7,.74)),url("https://images.unsplash.com/photo-1562552476-8ac59b2a2e46?auto=format&fit=crop&w=1800&q=80") center/cover}
+    .nav,.hero,.fixed{width:min(1160px,calc(100% - 32px));margin:0 auto}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:760;letter-spacing:.02em}.mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.08);color:var(--gold)}.nav-links{display:flex;gap:18px;color:var(--muted);font-size:14px}
+    .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);align-items:end;gap:34px;min-height:calc(82svh - 78px);padding:22px 0 42px}.copy{max-width:680px;padding-bottom:14px}.eyebrow{display:inline-flex;margin:0 0 18px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.07);color:var(--muted);font-size:13px}h1{max-width:780px;margin:0;font-size:clamp(42px,6vw,74px);line-height:.96;letter-spacing:-.055em}.lead{max-width:560px;margin:22px 0 0;color:var(--muted);font-size:clamp(16px,2vw,19px);line-height:1.7}
+    .planner{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);box-shadow:0 24px 80px rgba(0,0,0,.34);backdrop-filter:blur(22px);overflow:hidden}.planner-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px;border-bottom:1px solid var(--line)}.planner-title{margin:0;font-size:18px;font-weight:720}.status{color:var(--gold);font-size:12px;text-transform:uppercase}.planner-body{display:grid;gap:14px;padding:18px}label{display:grid;gap:8px;color:var(--muted);font-size:13px}.prompt{min-height:118px;width:100%;resize:vertical;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.28);color:var(--ink);padding:15px;outline:0;line-height:1.5}.prompt:focus,input:focus{border-color:rgba(214,168,59,.8);box-shadow:0 0 0 3px rgba(214,168,59,.14)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{max-width:100%;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.07);color:var(--ink);padding:9px 12px;font-size:13px}.chip:hover,.chip.active{border-color:rgba(214,168,59,.84);background:var(--gold-soft)}.split,.segmented{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{width:100%;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.26);color:var(--ink);padding:12px;outline:0}.segment{border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.07);color:var(--ink);padding:12px}.segment.active,.submit{border-color:transparent;background:var(--gold);color:#171206;font-weight:750}.submit{width:100%;border-radius:var(--r);padding:14px 16px;font-weight:800}
+    .fixed{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0 0 28px}.departure{border:1px solid var(--line);border-radius:var(--r);background:rgba(8,14,10,.78);color:var(--ink);padding:15px;text-align:left;backdrop-filter:blur(16px)}.departure strong{display:block;margin-bottom:7px}.departure span{display:block;color:var(--muted);font-size:13px;line-height:1.45}
+    @media (max-width:900px){.nav-links{display:none}.hero{grid-template-columns:1fr;min-height:auto;padding-top:10px}.copy{padding-bottom:0}.fixed{grid-template-columns:1fr}}@media (max-width:560px){.shell{background-position:56% center}.nav,.hero,.fixed{width:min(100% - 24px,1160px)}h1{font-size:40px}.split{grid-template-columns:1fr}.planner-head{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand"><span class="mark">W</span> Wild India Journeys</div>
+      <div class="nav-links"><a href="explore.html">Explore map</a><a href="itinerary.html">Costs</a><span>Regular camps</span><span>Luxury lodges</span><span>Fixed departures</span></div>
+    </nav>
+    <section class="hero" aria-label="Trip request">
+      <div class="copy">
+        <p class="eyebrow">India wildlife routes, built around sightings and seasons</p>
+        <h1>Tell us what you want to see. We will shape the forest run.</h1>
+        <p class="lead">Tigers in October, rhinos in Assam, birds near Delhi, or one dream forest with uncertain dates. Start messy. The trip can get precise later.</p>
+      </div>
+      <form class="planner" id="plannerForm">
+        <div class="planner-head"><p class="planner-title">Plan a safari</p><span class="status">Live route draft</span></div>
+        <div class="planner-body">
+          <label>Request<textarea class="prompt" id="tripPrompt" placeholder="Example: We want a luxury tiger trip in October for 10 days. Best forest is fine."></textarea></label>
+          <div class="chips" aria-label="Example requests">
+            <button class="chip" type="button" data-prompt="I want the best tiger experience in India for 10 days in October.">Best tiger route</button>
+            <button class="chip" type="button" data-prompt="We want a luxury safari with tigers and a quiet lodge for 7 nights.">Luxury tiger lodge</button>
+            <button class="chip" type="button" data-prompt="I want to see rhinos and birds in Assam, with one comfortable stay.">Rhinos and birds</button>
+            <button class="chip" type="button" data-prompt="We want to visit Kanha. Tell us the best time and route.">Specific forest</button>
+          </div>
+          <div class="split">
+            <label>Month<input class="field" id="month" placeholder="October" /></label>
+            <label>Length<input class="field" id="days" placeholder="10 days" /></label>
+          </div>
+          <div class="segmented" aria-label="Travel style">
+            <button class="segment active" type="button" data-style="regular">Regular</button>
+            <button class="segment" type="button" data-style="luxury">Luxury</button>
+          </div>
+          <button class="submit" type="submit">Build my route</button>
+        </div>
+      </form>
+    </section>
+    <section class="fixed" aria-label="Fixed departures">
+      <button class="departure" type="button" data-fixed="March tiger departure, regular, 6 nights in Tadoba and Pench"><strong>March tiger departure</strong><span>Regular. Tadoba and Pench. 6 nights.</span></button>
+      <button class="departure" type="button" data-fixed="October luxury tiger departure, 9 nights across Bandhavgarh and Kanha"><strong>October luxury departure</strong><span>Bandhavgarh and Kanha. 9 nights.</span></button>
+      <button class="departure" type="button" data-fixed="January Assam departure for rhinos, birds, and river landscapes"><strong>January Assam departure</strong><span>Kaziranga, birds, river landscapes.</span></button>
+    </section>
+  </main>
+  <script>
+    const form=document.querySelector("#plannerForm"),promptInput=document.querySelector("#tripPrompt"),monthInput=document.querySelector("#month"),daysInput=document.querySelector("#days"),styleButtons=Array.from(document.querySelectorAll("[data-style]"));let selectedStyle="regular";
+    function setStyle(style){selectedStyle=style;styleButtons.forEach(button=>button.classList.toggle("active",button.dataset.style===style))}
+    function submitPrompt(prompt){const query=(prompt||promptInput.value||"Best tiger experience in India").trim();const params=new URLSearchParams({q:query,style:selectedStyle,month:monthInput.value.trim(),days:daysInput.value.trim()});window.location.href=`plan.html?${params.toString()}`}
+    document.querySelectorAll("[data-prompt]").forEach(button=>button.addEventListener("click",()=>{promptInput.value=button.dataset.prompt;promptInput.focus()}));
+    document.querySelectorAll("[data-fixed]").forEach(button=>button.addEventListener("click",()=>{const text=button.dataset.fixed;selectedStyle=text.includes("luxury")?"luxury":"regular";submitPrompt(text)}));
+    styleButtons.forEach(button=>button.addEventListener("click",()=>setStyle(button.dataset.style)));
+    form.addEventListener("submit",event=>{event.preventDefault();submitPrompt()});
+  </script>
+</body>
+</html>

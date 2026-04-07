@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Itinerary Options and Costs</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f4ec;--muted:#aeb8aa;--leaf:#09100b;--panel:rgba(15,24,18,.84);--line:rgba(255,255,255,.14);--gold:#d6a83b;--gold-soft:rgba(214,168,59,.16);--r:8px}
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(125deg,rgba(6,11,8,.98),rgba(13,22,15,.84)),url("https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1800&q=80") center/cover fixed;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+    .shell{width:min(1440px,calc(100% - 28px));margin:0 auto;padding:14px 0}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 0 14px}.brand{display:flex;align-items:center;gap:10px;font-weight:780}.mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.08);color:var(--gold)}.links{display:flex;gap:14px;color:var(--muted);font-size:14px}.links a.active{color:var(--ink)}
+    .app{display:grid;grid-template-columns:280px minmax(0,1fr) 330px;gap:14px;min-height:calc(100svh - 72px)}.panel,.main{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);backdrop-filter:blur(22px);box-shadow:0 22px 80px rgba(0,0,0,.28);overflow:hidden}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px;border-bottom:1px solid var(--line)}.head h1,.head h2{margin:0;font-size:17px;letter-spacing:-.02em}.kicker{color:var(--gold);font-size:12px;text-transform:uppercase}.body{display:grid;gap:14px;padding:16px}.hero{display:grid;gap:14px;padding:22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}.hero h1{max-width:900px;margin:0;font-size:clamp(34px,5vw,64px);line-height:.98;letter-spacing:-.055em}.hero p,.muted{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
+    .field{display:grid;gap:8px;color:var(--muted);font-size:13px}.field input{width:100%;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.28);color:var(--ink);padding:12px;outline:0}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip,.ghost,.primary{border-radius:var(--r);padding:10px 12px}.chip,.ghost{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink)}.chip.active{border-color:rgba(214,168,59,.82);background:var(--gold-soft)}.primary{background:var(--gold);color:#171206;font-weight:820}.wide{width:100%}
+    .segments{display:grid;gap:12px;padding:14px}.segment{display:grid;grid-template-columns:minmax(0,1fr) 230px 130px;gap:14px;align-items:center;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.18);padding:15px}.segment h2{margin:0 0 6px;font-size:19px;letter-spacing:-.025em}.meta{display:flex;flex-wrap:wrap;gap:7px}.meta span{border:1px solid var(--line);border-radius:999px;padding:6px 8px;color:var(--muted);font-size:12px}.toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.price{text-align:right}.price strong{display:block;font-size:22px}.price span{color:var(--muted);font-size:12px}
+    .summary{position:sticky;top:14px;display:grid;gap:14px}.total{border:1px solid rgba(214,168,59,.42);border-radius:var(--r);background:var(--gold-soft);padding:16px}.total span{display:block;color:var(--muted);font-size:13px}.total strong{display:block;margin-top:6px;font-size:34px;letter-spacing:-.04em}.rows{display:grid;gap:10px}.row{display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}.row strong{color:var(--ink);text-align:right}.addon{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);padding:12px;color:var(--muted);font-size:14px}.addon input{margin-top:3px}.addon strong{display:block;color:var(--ink);margin-bottom:3px}.note{border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.18);padding:13px;color:var(--muted);line-height:1.55;font-size:13px}
+    @media (max-width:1120px){.app{grid-template-columns:280px minmax(0,1fr)}.summary-panel{grid-column:1/-1}.summary{position:static}.segment{grid-template-columns:1fr}}@media (max-width:760px){.shell{width:min(100% - 20px,1440px)}.app{grid-template-columns:1fr}.links{display:none}.hero h1{font-size:36px}.price{text-align:left}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="home.html"><span class="mark">W</span> Wild India Journeys</a>
+      <div class="links"><a href="home.html">Planner</a><a href="explore.html">Explore</a><a href="plan.html">Route draft</a><a class="active" href="itinerary.html">Costs</a></div>
+    </nav>
+    <section class="app">
+      <aside class="panel">
+        <div class="head"><h2>Pricing controls</h2><span class="kicker">Live</span></div>
+        <div class="body">
+          <label class="field">Guests<input id="guests" type="number" min="1" max="12" value="2" /></label>
+          <div class="field">Apply to all<div class="chips"><button class="chip" type="button" id="allRegular">All regular</button><button class="chip" type="button" id="allLuxury">All luxury</button></div></div>
+          <p class="muted" id="brief"></p>
+          <button class="ghost wide" type="button" id="resetMix">Reset recommended mix</button>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="hero">
+          <h1>Itinerary options with live cost shaping</h1>
+          <p id="routeCopy">Choose regular or luxury for each stay. The estimate updates immediately as the trip mix changes.</p>
+        </div>
+        <div class="segments" id="segments"></div>
+      </section>
+      <aside class="panel summary-panel">
+        <div class="head"><h2>Cost summary</h2><span class="kicker">Estimate</span></div>
+        <div class="body summary">
+          <div class="total"><span>Total trip estimate</span><strong id="grandTotal">INR 0</strong></div>
+          <div class="rows" id="breakdown"></div>
+          <div class="field">Add-ons
+            <label class="addon"><input type="checkbox" data-addon="naturalist" /><span><strong>Expert naturalist</strong>INR 18000 per safari base</span></label>
+            <label class="addon"><input type="checkbox" data-addon="private" /><span><strong>Private safari vehicle</strong>INR 14000 per drive</span></label>
+            <label class="addon"><input type="checkbox" data-addon="concierge" /><span><strong>Permit concierge</strong>INR 25000 flat planning fee</span></label>
+          </div>
+          <button class="primary wide" type="button" id="lock">Lock these options</button>
+          <p class="note" id="note">Indicative costing for experience design. Final quote depends on lodge availability, permit category, exact dates, taxes, and transfers.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const params=new URLSearchParams(window.location.search),state={query:params.get("q")||"Best tiger experience in India",style:params.get("style")||"regular",month:params.get("month")||"",guests:2,addons:{naturalist:false,private:false,concierge:false},segments:[]};
+    const templates={tiger:{copy:"A two-forest tiger route where Kanha can stay regular while Bandhavgarh moves luxury for the highest-impact nights.",segments:[seg("Jabalpur arrival",1,0,9000,22000,18000),seg("Kanha",3,4,15500,42000,32000),seg("Bandhavgarh",4,6,17000,56000,36000),seg("Buffer and fly out",1,0,9500,26000,24000)]},rhino:{copy:"A Kaziranga-led route with room to upgrade the main grassland stay and keep airport nights lean.",segments:[seg("Guwahati arrival",1,0,8500,21000,16000),seg("Kaziranga",4,5,14500,39000,30000),seg("Nameri or Pobitora",2,2,12000,31000,22000),seg("Guwahati departure",1,0,8500,21000,16000)]},birds:{copy:"A birding route where spend is best placed on guides, vehicles, and fewer hotel changes.",segments:[seg("Bharatpur",2,2,8000,18000,12000),seg("Chambal",2,2,11000,28000,24000),seg("Corbett foothills",2,2,13000,36000,28000),seg("Delhi departure",1,0,9000,24000,14000)]},forest:{copy:"A single-forest route with adjustable lodge grade across core safari nights and buffer nights.",segments:[seg("Arrival base",1,0,9000,23000,18000),seg("Core safari stay",4,6,15000,44000,32000),seg("Buffer or second zone",1,1,12000,32000,22000),seg("Departure night",1,0,8500,21000,16000)]}};
+    function seg(name,nights,drives,regular,luxury,transfer){return{name,nights,drives,regular,luxury,transfer,style:null}}
+    function detect(){const t=state.query.toLowerCase();if(t.includes("rhino")||t.includes("assam")||t.includes("kaziranga"))return"rhino";if(t.includes("bird")||t.includes("bharatpur")||t.includes("chambal"))return"birds";if(t.includes("tiger")||t.includes("kanha")||t.includes("bandhavgarh")||t.includes("tadoba")||t.includes("ranthambore"))return"tiger";return"forest"}
+    function init(){state.segments=templates[detect()].segments.map(s=>({...s,style:state.style==="luxury"?"luxury":"regular"}));if(detect()==="tiger"&&state.style!=="luxury")state.segments[2].style="luxury";render()}
+    function money(n){return "INR "+Math.round(n).toLocaleString("en-IN")}
+    function segmentCost(s){const stay=s.style==="luxury"?s.luxury:s.regular;const safari=s.style==="luxury"?12500:7800;return((stay*s.nights)+(safari*s.drives))*state.guests+s.transfer}
+    function addonCost(){let total=0;if(state.addons.naturalist)total+=18000*state.segments.filter(s=>s.drives>0).length;if(state.addons.private)total+=14000*state.segments.reduce((sum,s)=>sum+s.drives,0);if(state.addons.concierge)total+=25000;return total}
+    function render(){const tpl=templates[detect()];document.querySelector("#routeCopy").textContent=tpl.copy;document.querySelector("#brief").textContent=`Request: ${state.query}${state.month?` in ${state.month}`:""}. Mix lodge styles below before quoting.`;document.querySelector("#segments").innerHTML=state.segments.map((s,i)=>`<article class="segment"><div><h2>${s.name}</h2><p class="muted">${s.nights} night${s.nights===1?"":"s"}, ${s.drives} safari drive${s.drives===1?"":"s"}, transfer allowance included.</p><div class="meta"><span>${s.style==="luxury"?"Luxury lodge":"Regular lodge"}</span><span>Stay ${money(s.style==="luxury"?s.luxury:s.regular)} per guest/night</span></div></div><div class="toggle"><button class="chip ${s.style==="regular"?"active":""}" type="button" data-segment="${i}" data-style="regular">Regular</button><button class="chip ${s.style==="luxury"?"active":""}" type="button" data-segment="${i}" data-style="luxury">Luxury</button></div><div class="price"><strong>${money(segmentCost(s))}</strong><span>segment total</span></div></article>`).join("");const segmentTotal=state.segments.reduce((sum,s)=>sum+segmentCost(s),0),addons=addonCost(),grand=segmentTotal+addons;document.querySelector("#grandTotal").textContent=money(grand);document.querySelector("#breakdown").innerHTML=`<div class="row"><span>Segments</span><strong>${money(segmentTotal)}</strong></div><div class="row"><span>Add-ons</span><strong>${money(addons)}</strong></div><div class="row"><span>Guests</span><strong>${state.guests}</strong></div><div class="row"><span>Average per guest</span><strong>${money(grand/state.guests)}</strong></div>`}
+    document.querySelector("#segments").addEventListener("click",e=>{const b=e.target.closest("[data-segment]");if(!b)return;state.segments[Number(b.dataset.segment)].style=b.dataset.style;render()});
+    document.querySelector("#guests").addEventListener("input",e=>{state.guests=Math.max(1,Number(e.target.value)||1);render()});
+    document.querySelectorAll("[data-addon]").forEach(input=>input.addEventListener("change",e=>{state.addons[e.target.dataset.addon]=e.target.checked;render()}));
+    document.querySelector("#allRegular").addEventListener("click",()=>{state.segments.forEach(s=>s.style="regular");render()});
+    document.querySelector("#allLuxury").addEventListener("click",()=>{state.segments.forEach(s=>s.style="luxury");render()});
+    document.querySelector("#resetMix").addEventListener("click",init);
+    document.querySelector("#lock").addEventListener("click",()=>{document.querySelector("#note").textContent="Options locked for review. Next step: check live lodge availability, safari permit rules, taxes, and transfer timings before sending a formal quote."});
+    init();
+  </script>
+</body>
+</html>
