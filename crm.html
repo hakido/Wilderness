@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator CRM</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f4ec;--muted:#aeb8aa;--leaf:#08100b;--panel:rgba(14,23,17,.84);--line:rgba(255,255,255,.14);--gold:#d6a83b;--gold-soft:rgba(214,168,59,.16);--green:#79a466;--rust:#d97745;--r:8px}
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(135deg,rgba(4,9,6,.98),rgba(14,24,17,.9)),url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1800&q=80") center/cover fixed;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+    .shell{width:min(1500px,calc(100% - 28px));margin:0 auto;padding:14px 0}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 0 14px}.brand{display:flex;align-items:center;gap:10px;font-weight:780}.mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.08);color:var(--gold)}.links{display:flex;gap:14px;color:var(--muted);font-size:14px}.links a.active{color:var(--ink)}
+    .app{display:grid;grid-template-columns:250px minmax(0,1fr) 360px;gap:14px;min-height:calc(100svh - 72px)}.panel,.main{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);backdrop-filter:blur(22px);box-shadow:0 22px 80px rgba(0,0,0,.28);overflow:hidden}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px;border-bottom:1px solid var(--line)}.head h1,.head h2,.head h3{margin:0;font-size:17px;letter-spacing:-.02em}.kicker{color:var(--gold);font-size:12px;text-transform:uppercase}.body{display:grid;gap:14px;padding:16px}.side{display:grid;align-content:start;gap:8px;padding:12px}.side button{display:flex;justify-content:space-between;gap:10px;border:1px solid transparent;border-radius:var(--r);background:transparent;color:var(--muted);padding:12px;text-align:left}.side button.active{border-color:rgba(214,168,59,.45);background:var(--gold-soft);color:var(--ink)}.count{color:var(--gold);font-size:12px}
+    .hero{display:grid;gap:16px;padding:20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}.hero h1{margin:0;font-size:clamp(34px,4.5vw,58px);line-height:.98;letter-spacing:-.055em}.hero p,.muted{margin:0;color:var(--muted);line-height:1.6;font-size:14px}.tools{display:grid;grid-template-columns:minmax(0,1fr) 180px 150px;gap:10px}.tools input,.tools select{min-width:0;border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.26);color:var(--ink);padding:12px;outline:0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);padding:13px;color:var(--muted);font-size:13px}.stat strong{display:block;margin-top:6px;color:var(--ink);font-size:24px;letter-spacing:-.03em}
+    .content{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:14px;padding:14px}.section{border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.18);overflow:hidden}.section h2{margin:0;padding:15px;border-bottom:1px solid var(--line);font-size:16px}.list{display:grid;gap:10px;padding:14px}.record{display:grid;gap:8px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);color:var(--ink);padding:13px;text-align:left}.record.active{border-color:rgba(214,168,59,.82);background:var(--gold-soft)}.record-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.record strong{font-size:15px}.record span,.mini{color:var(--muted);font-size:13px;line-height:1.45}.tags{display:flex;flex-wrap:wrap;gap:7px}.tag{border:1px solid var(--line);border-radius:999px;padding:6px 8px;color:var(--muted);font-size:12px}.status{color:#171206;background:var(--gold);border-radius:999px;padding:6px 8px;font-size:12px;font-weight:760;white-space:nowrap}.status.soft{color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line)}
+    .timeline{display:grid;gap:10px;padding:14px}.task{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}.task:last-child{border-bottom:0}.task time{color:var(--gold);font-size:13px;font-weight:760}.resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.detail{display:grid;gap:14px}.detail-card{border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);padding:14px}.detail-card h3{margin:0 0 10px;font-size:16px}.fact{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}.fact:last-child{border-bottom:0}.fact strong{color:var(--ink);text-align:right}.money{color:var(--gold)}
+    @media (max-width:1200px){.app{grid-template-columns:230px minmax(0,1fr)}.right{grid-column:1/-1}.content{grid-template-columns:1fr}}@media (max-width:820px){.shell{width:min(100% - 20px,1500px)}.app{grid-template-columns:1fr}.links{display:none}.tools,.stats,.resource-grid{grid-template-columns:1fr}.hero h1{font-size:36px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="home.html"><span class="mark">W</span> Wild India Journeys</a>
+      <div class="links"><a href="home.html">Planner</a><a href="explore.html">Explore</a><a href="plan.html">Route draft</a><a href="itinerary.html">Costs</a><a class="active" href="crm.html">Operator CRM</a></div>
+    </nav>
+    <section class="app">
+      <aside class="panel">
+        <div class="head"><h2>Modules</h2><span class="kicker">Ops</span></div>
+        <div class="side" id="modules"></div>
+      </aside>
+      <section class="main">
+        <div class="hero">
+          <div>
+            <p class="kicker">Wildlife tour operations</p>
+            <h1 id="moduleTitle">Operator CRM</h1>
+            <p id="moduleCopy">Track every enquiry, guest, supplier, lodge, permit, and safari movement in one working console.</p>
+          </div>
+          <div class="tools">
+            <input id="search" placeholder="Search guest, forest, driver, hotel..." />
+            <select id="stageFilter"><option value="all">All stages</option><option>Hot enquiry</option><option>Quote sent</option><option>Confirmed</option><option>On tour</option><option>Need action</option></select>
+            <select id="styleFilter"><option value="all">All styles</option><option>Regular</option><option>Luxury</option><option>Fixed tour</option><option>Private</option></select>
+          </div>
+          <div class="stats" id="stats"></div>
+        </div>
+        <div class="content">
+          <section class="section">
+            <h2 id="listTitle">Records</h2>
+            <div class="list" id="records"></div>
+          </section>
+          <section class="section">
+            <h2>Today and risk watch</h2>
+            <div class="timeline" id="timeline"></div>
+          </section>
+        </div>
+      </section>
+      <aside class="panel right">
+        <div class="head"><h3>Selected file</h3><span class="kicker" id="selectedStatus">Live</span></div>
+        <div class="body detail" id="detail"></div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const records=[
+      {type:"enquiries",stage:"Hot enquiry",style:"Luxury",name:"Aarav Mehta family",route:"Bandhavgarh and Kanha",dates:"18-27 Oct",value:1180000,guest:"4 guests",owner:"Nisha",driver:"Pending",naturalist:"Ravi S.",hotel:"Taj Safari Mahua Kothi",note:"Asked for best tiger experience, child friendly pace, no early transfer on day 1.",risk:"Need permit block by Friday"},
+      {type:"enquiries",stage:"Quote sent",style:"Regular",name:"Maya Thompson",route:"Tadoba and Pench",dates:"12-18 Mar",value:386000,guest:"2 guests",owner:"Kabir",driver:"Sanjay P.",naturalist:"Pending",hotel:"Svasara Jungle Lodge",note:"Wants photography guide and simple clean rooms.",risk:"Awaiting passport details"},
+      {type:"bookings",stage:"Confirmed",style:"Luxury",name:"Hiro Tanaka",route:"Kanha, Bandhavgarh",dates:"03-12 Nov",value:940000,guest:"2 guests",owner:"Nisha",driver:"Sanjay P.",naturalist:"Meera V.",hotel:"Banjaar Tola, Samode Safari Lodge",note:"Invoice 70 percent paid. Airport pickup from Jabalpur.",risk:"Bandhavgarh permit upload pending"},
+      {type:"bookings",stage:"On tour",style:"Private",name:"Elena Rossi",route:"Kaziranga and Nameri",dates:"08-15 Apr",value:620000,guest:"3 guests",owner:"Kabir",driver:"Imran A.",naturalist:"Pranab D.",hotel:"Diphlu River Lodge",note:"Private rhino and birding safari, vegetarian meals.",risk:"Tomorrow range changed to Western"},
+      {type:"private",stage:"Need action",style:"Private",name:"Singh corporate retreat",route:"Ranthambore",dates:"22-25 Jan",value:1320000,guest:"12 guests",owner:"Nisha",driver:"Fleet x4",naturalist:"Ravi S. + 2",hotel:"Aman-i-Khas",note:"Private buyout requested, VIP arrival from Jaipur.",risk:"Vehicle manifest not locked"},
+      {type:"fixed",stage:"Confirmed",style:"Fixed tour",name:"October luxury tiger departure",route:"Bandhavgarh and Kanha",dates:"05-14 Oct",value:2880000,guest:"9 of 12 seats",owner:"Kabir",driver:"Sanjay P. + Mahesh",naturalist:"Meera V.",hotel:"Mahua Kothi, Banjaar Tola",note:"Three seats open. Two UK guests need single supplement.",risk:"Rooming list due"},
+      {type:"fixed",stage:"Quote sent",style:"Fixed tour",name:"March regular tiger departure",route:"Tadoba and Pench",dates:"10-16 Mar",value:960000,guest:"6 of 10 seats",owner:"Nisha",driver:"Imran A.",naturalist:"Pending",hotel:"Svasara, Tuli Tiger Corridor",note:"Good for repeat regular package buyers.",risk:"Naturalist not assigned"},
+      {type:"drivers",stage:"Confirmed",style:"Private",name:"Sanjay Patil",route:"Nagpur, Tadoba, Pench",dates:"Available Mar 8-22",value:0,guest:"Driver",owner:"Ops",driver:"Primary supplier",naturalist:"N/A",hotel:"Driver room required",note:"Innova Crysta, strong with photo groups, English basic.",risk:"RC renewal due in May"},
+      {type:"naturalists",stage:"Confirmed",style:"Luxury",name:"Meera Vyas",route:"Kanha and Bandhavgarh",dates:"Available Oct-Nov",value:0,guest:"Naturalist",owner:"Ops",driver:"N/A",naturalist:"Lead naturalist",hotel:"Staff room required",note:"Tiger behavior specialist, excellent with luxury guests.",risk:"Avoid back-to-back 10 day runs"},
+      {type:"hotels",stage:"Confirmed",style:"Luxury",name:"Mahua Kothi",route:"Bandhavgarh",dates:"Allocation: Oct 5-14",value:0,guest:"8 rooms held",owner:"Lodge desk",driver:"Driver room on request",naturalist:"Naturalist room on request",hotel:"Luxury lodge",note:"Release date 45 days prior. 2 twin rooms and 6 doubles.",risk:"Single supplement quote pending"},
+      {type:"hotels",stage:"Need action",style:"Regular",name:"Tuli Tiger Corridor",route:"Pench",dates:"Allocation: Mar 10-16",value:0,guest:"5 rooms requested",owner:"Lodge desk",driver:"Driver room included",naturalist:"Guide room extra",hotel:"Regular lodge",note:"Need meal plan confirmation for 10 seats.",risk:"Hold expires tomorrow"}
+    ];
+    const modules=[
+      ["all","Command center"],["enquiries","Enquiries"],["bookings","Bookings"],["private","Upcoming private safaris"],["fixed","Fixed tour joiners"],["drivers","Associated drivers"],["naturalists","Associated naturalists"],["hotels","Hotels and resorts"]
+    ];
+    const tasks=[
+      ["09:30","Call Aarav Mehta family. Luxury room mix and tiger route explanation."],["11:00","Upload passport names for Hiro Tanaka Bandhavgarh permits."],["13:15","Confirm Kaziranga Western range change with Pranab and lodge desk."],["15:00","Lock naturalist for March regular tiger departure."],["17:30","Send rooming list for October luxury tiger departure."]
+    ];
+    const state={module:"all",selected:records[0].name};
+    const money=n=>n?`INR ${n.toLocaleString("en-IN")}`:"Supplier file";
+    function moduleLabel(){return modules.find(m=>m[0]===state.module)[1]}
+    function visibleRecords(){const term=document.querySelector("#search").value.toLowerCase(),stage=document.querySelector("#stageFilter").value,style=document.querySelector("#styleFilter").value;return records.filter(r=>(state.module==="all"||r.type===state.module)&&(stage==="all"||r.stage===stage)&&(style==="all"||r.style===style)&&[r.name,r.route,r.driver,r.naturalist,r.hotel,r.note].join(" ").toLowerCase().includes(term))}
+    function renderModules(){document.querySelector("#modules").innerHTML=modules.map(([key,label])=>`<button class="${state.module===key?"active":""}" type="button" data-module="${key}"><span>${label}</span><span class="count">${key==="all"?records.length:records.filter(r=>r.type===key).length}</span></button>`).join("")}
+    function renderStats(items){const hot=records.filter(r=>r.stage==="Hot enquiry").length,confirmed=records.filter(r=>r.stage==="Confirmed").length,risks=records.filter(r=>r.stage==="Need action"||r.risk.toLowerCase().includes("pending")).length,total=records.reduce((sum,r)=>sum+r.value,0);document.querySelector("#stats").innerHTML=[["Open enquiries",hot],["Confirmed files",confirmed],["Risk watch",risks],["Pipeline value",money(total)]].map(s=>`<div class="stat">${s[0]}<strong>${s[1]}</strong></div>`).join("")}
+    function renderRecords(){const items=visibleRecords();if(!items.find(r=>r.name===state.selected))state.selected=items[0]?.name||records[0].name;document.querySelector("#moduleTitle").textContent=moduleLabel();document.querySelector("#listTitle").textContent=`${items.length} ${items.length===1?"record":"records"}`;document.querySelector("#records").innerHTML=items.map(r=>`<button class="record ${r.name===state.selected?"active":""}" type="button" data-record="${r.name}"><div class="record-top"><strong>${r.name}</strong><span class="status ${r.stage==="Need action"?"":"soft"}">${r.stage}</span></div><span>${r.route} | ${r.dates} | ${r.guest}</span><div class="tags"><span class="tag">${r.style}</span><span class="tag">${money(r.value)}</span><span class="tag">${r.owner}</span></div></button>`).join("")||`<p class="muted">No records match this filter.</p>`;renderStats(items);renderDetail()}
+    function renderDetail(){const r=records.find(item=>item.name===state.selected)||records[0];document.querySelector("#selectedStatus").textContent=r.stage;document.querySelector("#detail").innerHTML=`<div class="detail-card"><h3>${r.name}</h3><p class="muted">${r.note}</p></div><div class="detail-card"><h3>Trip file</h3>${fact("Route",r.route)}${fact("Dates",r.dates)}${fact("Guests",r.guest)}${fact("Style",r.style)}${fact("Value",money(r.value))}${fact("Owner",r.owner)}</div><div class="detail-card"><h3>Suppliers</h3>${fact("Driver",r.driver)}${fact("Naturalist",r.naturalist)}${fact("Hotel/resort",r.hotel)}</div><div class="detail-card"><h3>Risk</h3><p class="muted">${r.risk}</p></div>`}
+    function fact(label,value){return `<div class="fact"><span>${label}</span><strong>${value}</strong></div>`}
+    function renderTimeline(){document.querySelector("#timeline").innerHTML=tasks.map(t=>`<article class="task"><time>${t[0]}</time><p class="muted">${t[1]}</p></article>`).join("")}
+    document.querySelector("#modules").addEventListener("click",e=>{const button=e.target.closest("[data-module]");if(!button)return;state.module=button.dataset.module;renderModules();renderRecords()});
+    document.querySelector("#records").addEventListener("click",e=>{const button=e.target.closest("[data-record]");if(!button)return;state.selected=button.dataset.record;renderRecords()});
+    ["#search","#stageFilter","#styleFilter"].forEach(id=>document.querySelector(id).addEventListener("input",renderRecords));
+    renderModules();renderTimeline();renderRecords();
+  </script>
+</body>
+</html>
