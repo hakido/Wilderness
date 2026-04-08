@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tour Operations</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f4ec;--muted:#aeb8aa;--panel:rgba(14,23,17,.84);--line:rgba(255,255,255,.14);--gold:#d6a83b;--gold-soft:rgba(214,168,59,.16);--r:8px}
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(135deg,rgba(4,9,6,.98),rgba(14,24,17,.9)),url("https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1800&q=80") center/cover fixed;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+    .shell{width:min(1500px,calc(100% - 28px));margin:0 auto;padding:14px 0}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 0 14px}.brand{display:flex;align-items:center;gap:10px;font-weight:780}.mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.08);color:var(--gold)}.links{display:flex;gap:14px;color:var(--muted);font-size:14px}.links a.active{color:var(--ink)}
+    .app{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px;min-height:calc(100svh - 72px)}.panel,.main{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);backdrop-filter:blur(22px);box-shadow:0 22px 80px rgba(0,0,0,.28);overflow:hidden}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px;border-bottom:1px solid var(--line)}h1,h2,h3{margin:0}.kicker{color:var(--gold);font-size:12px;text-transform:uppercase}.body{display:grid;gap:14px;padding:16px}.hero{display:grid;gap:14px;padding:20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}.hero h1{font-size:clamp(34px,4.5vw,58px);line-height:.98;letter-spacing:-.055em}.muted{margin:0;color:var(--muted);line-height:1.6;font-size:14px}.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:14px;padding:14px}.section{border:1px solid var(--line);border-radius:var(--r);background:rgba(0,0,0,.18);overflow:hidden}.section h2{padding:15px;border-bottom:1px solid var(--line);font-size:16px}.tour{display:grid;gap:8px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);color:var(--ink);padding:13px;text-align:left}.tour.active{border-color:rgba(214,168,59,.82);background:var(--gold-soft)}.row{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)}.row strong{color:var(--ink);text-align:right}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}.table th{color:var(--gold);font-weight:760}.status{display:inline-block;border-radius:999px;background:var(--gold);color:#171206;padding:5px 7px;font-size:12px;font-weight:760}.soft{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink)}.cards{display:grid;gap:10px;padding:14px}.item{border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.05);padding:12px}.item strong{display:block;margin-bottom:5px}.check{display:grid;gap:8px}.check label{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}.check input{margin-top:3px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:1100px){.app,.grid{grid-template-columns:1fr}.links{display:none}.split{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav"><a class="brand" href="home.html"><span class="mark">W</span> Wild India Journeys</a><div class="links"><a href="crm.html">CRM</a><a class="active" href="tour-ops.html">Tour ops</a><a href="associates.html">Associates</a><a href="hotels.html">Hotels</a></div></nav>
+    <section class="app">
+      <aside class="panel"><div class="head"><h2>Open tours</h2><span class="kicker">Private + fixed</span></div><div class="body" id="tourList"></div></aside>
+      <section class="main">
+        <div class="hero"><p class="kicker">Operator-only trip file</p><h1 id="title">Tour workspace</h1><p class="muted" id="summary"></p></div>
+        <div class="grid">
+          <section class="section"><h2>Participants</h2><div style="overflow:auto"><table class="table" id="participants"></table></div></section>
+          <section class="section"><h2>Trip controls</h2><div class="cards" id="controls"></div></section>
+          <section class="section"><h2>Operator checklist</h2><div class="cards check" id="checklist"></div></section>
+          <section class="section"><h2>Task list</h2><div class="cards" id="tasks"></div></section>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script>
+    const tours=[
+      {name:"October luxury tiger departure",kind:"Fixed tour",route:"Bandhavgarh and Kanha",dates:"05-14 Oct",owner:"Kabir",hotel:"Mahua Kothi, Banjaar Tola",driver:"Sanjay P. + Mahesh",naturalist:"Meera Vyas",participants:[["Eleanor Hughes",58,"Female","UK","04 Oct, Delhi","Mahua Kothi","Paid"],["Peter Hughes",61,"Male","UK","04 Oct, Delhi","Mahua Kothi","Paid"],["Ava Wilson",34,"Female","USA","05 Oct, Jabalpur","Banjaar Tola","Deposit"],["Noah Wilson",36,"Male","USA","05 Oct, Jabalpur","Banjaar Tola","Deposit"],["Riya Kapoor",42,"Female","India","05 Oct, Jabalpur","Mahua Kothi","Paid"]]},
+      {name:"Singh corporate retreat",kind:"Private safari",route:"Ranthambore",dates:"22-25 Jan",owner:"Nisha",hotel:"Aman-i-Khas",driver:"Fleet x4",naturalist:"Ravi S. + 2",participants:[["Arjun Singh",49,"Male","India","22 Jan, Jaipur","Aman-i-Khas","Paid"],["Neha Singh",45,"Female","India","22 Jan, Jaipur","Aman-i-Khas","Paid"],["Corporate guest list",0,"Mixed","India","22 Jan, Jaipur","Aman-i-Khas","Balance due"]]},
+      {name:"Kaziranga private rhino safari",kind:"Private safari",route:"Kaziranga and Nameri",dates:"08-15 Apr",owner:"Kabir",hotel:"Diphlu River Lodge",driver:"Imran A.",naturalist:"Pranab D.",participants:[["Elena Rossi",39,"Female","Italy","08 Apr, Guwahati","Diphlu River Lodge","Paid"],["Marco Rossi",41,"Male","Italy","08 Apr, Guwahati","Diphlu River Lodge","Paid"],["Luca Rossi",12,"Male","Italy","08 Apr, Guwahati","Diphlu River Lodge","Paid"]]}
+    ];
+    const checklist=["Client passports uploaded","Safari permit IDs verified","Hotel rooming list sent","Driver duty slip confirmed","Naturalist assignment confirmed","Arrival transfer board prepared","Dietary notes shared with hotels","Emergency contact sheet ready"];
+    const tasks=["Collect final balance","Confirm airport pickup timing","Recheck safari zone allocation","Share day-wise operations note with driver","Send lodge contact sheet to guest","Update payment ledger"];
+    let selected=0;
+    function render(){const t=tours[selected];document.querySelector("#tourList").innerHTML=tours.map((tour,i)=>`<button class="tour ${i===selected?"active":""}" data-tour="${i}"><strong>${tour.name}</strong><span class="muted">${tour.kind} | ${tour.route}</span><span class="muted">${tour.dates}</span></button>`).join("");document.querySelector("#title").textContent=t.name;document.querySelector("#summary").textContent=`${t.kind} across ${t.route}. Owner: ${t.owner}. Hotel: ${t.hotel}.`;document.querySelector("#participants").innerHTML=`<tr><th>Name</th><th>Age</th><th>Gender</th><th>Nationality</th><th>Arrival</th><th>Hotel/Resort</th><th>Payment</th></tr>`+t.participants.map(p=>`<tr><td>${p[0]}</td><td>${p[1]||"TBC"}</td><td>${p[2]}</td><td>${p[3]}</td><td>${p[4]}</td><td>${p[5]}</td><td><span class="status ${p[6]==="Paid"?"":"soft"}">${p[6]}</span></td></tr>`).join("");document.querySelector("#controls").innerHTML=`<div class="split"><div class="item"><strong>Driver</strong><p class="muted">${t.driver}</p></div><div class="item"><strong>Naturalist</strong><p class="muted">${t.naturalist}</p></div><div class="item"><strong>Hotel/resort</strong><p class="muted">${t.hotel}</p></div><div class="item"><strong>Operations owner</strong><p class="muted">${t.owner}</p></div></div>`;document.querySelector("#checklist").innerHTML=checklist.map((c,i)=>`<label><input type="checkbox" ${i<3?"checked":""}/><span>${c}</span></label>`).join("");document.querySelector("#tasks").innerHTML=tasks.map((task,i)=>`<div class="item"><strong>${i+1}. ${task}</strong><p class="muted">${i<2?"Due today":"Before tour start"}</p></div>`).join("")}
+    document.querySelector("#tourList").addEventListener("click",e=>{const b=e.target.closest("[data-tour]");if(!b)return;selected=Number(b.dataset.tour);render()});render();
+  </script>
+</body>
+</html>
