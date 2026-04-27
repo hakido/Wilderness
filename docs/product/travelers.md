@@ -231,9 +231,16 @@ The customer experience is the same whether they booked a fixed departure or a c
 
 ## Account and identity
 
-**Anonymous browsing** — fixed-departure pages, FAQ, and the agent's first interactions all work without an account. The traveler can build a custom itinerary with the agent without creating an account.
+**Anonymous browsing and planning** — fixed-departure pages, FAQ, and the entire custom-trip agent conversation all work without an account. The traveler can describe what they want, iterate with the agent, and explore alternatives without ever signing up.
 
-**Account at booking** — when the traveler proceeds to payment, the system creates or links to an account using their email + OTP, or social login. The operator chooses which methods are enabled.
+**Account at itinerary delivery** — the account-creation moment is when the customer commits to a specific trip they want to hold onto, not at payment.
+
+- **Custom-trip path:** the agent prompts for account creation when it produces a priced itinerary the customer wants to keep. This lets slow-burn planners (the dominant pattern in this category — see behavior #1) leave and return to their saved itinerary across sessions and devices via login, instead of relying on browser cookies or magic links.
+- **Fixed-departure path:** the account is created at the "Book this departure" form step (before payment), since there is no agent-produced itinerary moment to anchor it to.
+
+In both paths, account creation happens *before* the Stripe payment step, not after it. Methods are email + OTP or social login; the operator chooses which are enabled.
+
+When account creation fires, any in-flight `conversations` row with `customer_id = null` is re-keyed to the new (or matched-existing) `customer_id`. Returning customers (email match) merge into their existing account rather than creating a duplicate.
 
 **Magic links for companions** — the lead traveler doesn't need to create accounts for their companions. Companions receive magic links by email or WhatsApp to fill their own pre-trip forms (passport, dietary, medical) without password setup.
 
